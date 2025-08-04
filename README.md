@@ -43,7 +43,7 @@ Start the server:
 ```bash
 node server.js
 ```
-The backend will run on: http://localhost:5000
+The backend will run on: `http://localhost:5000`
 ### Frontend Setup
 ```bash
 cd frontend
@@ -57,6 +57,6 @@ Start the frontend:
 ```bash
 npm run dev
 ```
-The frontend will run on: http://localhost:5173
+The frontend will run on: `http://localhost:5173`
 
 Note: Currently, the deployed version of the project is facing functionality issues. While both the frontend and backend have been successfully deployed on different platforms, the application is not working as expected in the deployed environment. This may be due to configuration issues, incorrect API endpoints, or CORS-related problems. I am actively working on identifying and resolving the issue. The local version of the project works correctly.
