@@ -70,7 +70,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // POST /api/register
-app.post("/auth/register", async (req, res) => {
+app.post("/api/auth/register", async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const newUser = new User({ username, email  });
@@ -86,7 +86,7 @@ app.post("/auth/register", async (req, res) => {
 });
 
 // POST /api/login
-app.post('/login', (req, res, next) => {
+app.post('/api/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err);
     if (!user) {
@@ -102,7 +102,7 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-app.get("/posts", async (req, res, next) => {
+app.get("/api/posts", async (req, res, next) => {
   try {
     const posts = await Post
       .find()
@@ -114,7 +114,7 @@ app.get("/posts", async (req, res, next) => {
   }
 });
 
-app.post("/posts", (req, res, next) => {
+app.post("/api/posts", (req, res, next) => {
   if (!req.user) {
     console.log(req.user);
     return res.status(401).json({ error: 'Not authenticated' });
@@ -130,7 +130,7 @@ app.post("/posts", (req, res, next) => {
 });
 
 // GET /users/:id - get user profile
-app.get('/users/:id', async (req, res) => {
+app.get('/api/users/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select('-password'); // exclude password
     if (!user) return res.status(404).json({ error: 'User not found' });
@@ -141,7 +141,7 @@ app.get('/users/:id', async (req, res) => {
 });
 
 // GET /users/:id/posts - get posts by user
-app.get('/users/:id/posts', async (req, res) => {
+app.get('/api/users/:id/posts', async (req, res) => {
   try {
     const posts = await Post.find({ author: req.params.id }).sort({ createdAt: -1 });
     res.json(posts);

@@ -5,6 +5,7 @@ import PostCard from './PostCard';
 import NewPostForm from './NewPostForm';
 import { AuthContext } from '../AuthContext';
 import './Profile.css';
+const BASE_URL = import.meta.env.VITE_API_BASE;
 
 export default function Profile() {
   const { id } = useParams();
@@ -13,12 +14,12 @@ export default function Profile() {
   const [posts, setPosts] = useState([]);
 
   const fetchProfile = async () => {
-    const { data } = await api.get(`/users/${id}`);
+    const { data } = await api.get(`${BASE_URL}/api/users/${id}`);
     setProfile(data);
   };
 
   const fetchPosts = async () => {
-    const { data } = await api.get(`/users/${id}/posts`);
+    const { data } = await api.get(`${BASE_URL}/api/users/${id}/posts`);
     setPosts(data);
   };
 
