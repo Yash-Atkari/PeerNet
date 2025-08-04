@@ -59,7 +59,7 @@ const sessionOptions = {
 };
 
 const User = require("./models/user.js");
-const Post = require('./models/Post');
+const Post = require('./models/post.js');
 
 app.use(session(sessionOptions));
 app.use(passport.initialize());
