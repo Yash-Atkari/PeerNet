@@ -1,37 +1,36 @@
-import React, { createContext, useState, useEffect } from 'react';
+// AuthContext.jsx
+import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('user');
-    return saved ? JSON.parse(saved) : null;
+    const saved = localStorage.getItem("user");
+    try {
+      return saved && saved !== "undefined" ? JSON.parse(saved) : null;
+    } catch (err) {
+      return null;
+    }
   });
-  const [token, setToken] = useState(() => localStorage.getItem('token'));
 
-  const login = (userData, jwt) => {
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  const login = (userData) => {
     setUser(userData);
-    setToken(jwt);
-    localStorage.setItem('user', JSON.stringify(userData));
-    localStorage.setItem('token', jwt);
-    api.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
   };
 
   const logout = () => {
     setUser(null);
-    setToken(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    delete api.defaults.headers.common['Authorization'];
+    localStorage.removeItem("user");
   };
 
-  useEffect(() => {
-    if (token) api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }, [token]);
-
   return (
-    <AuthContext.Provider value={{ user, token, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;

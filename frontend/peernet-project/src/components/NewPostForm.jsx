@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { api } from '../api';
+import './NewPostForm.css';
 
 export default function NewPostForm({ onPost }) {
   const [text, setText] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (!text.trim()) return;
     await api.post('/posts', { text });
     setText('');
     onPost();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6">
+    <form onSubmit={handleSubmit} className="new-post-form mb-6">
       <textarea
         className="w-full p-2 border mb-2"
         rows={3}

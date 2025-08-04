@@ -1,0 +1,41 @@
+/* NavBar.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #f3f4f6; /* light gray */
+  border-bottom: 1px solid #ddd;
+  font-family: Arial, sans-serif;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #333;
+  margin-right: 16px;
+  font-size: 16px;
+}
+
+.navbar a:hover {
+  color: #007bff;
+}
+
+.navbar .brand {
+  font-weight: bold;
+  font-size: 24px;
+  color: #111;
+}
+
+.navbar button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+.navbar button:hover {
+  color: red;
+}

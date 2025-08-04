@@ -2,39 +2,41 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../AuthContext';
 import { api } from '../api';
 import { useNavigate, Link } from 'react-router-dom';
+import './Login.css';
 
 export default function Login() {
   const { login } = useContext(AuthContext);
   const nav = useNavigate();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const { data } = await api.post('/auth/login', { email, password });
-      login(data.user, data.token);
-      nav('/');
+      const form = { username, password }; // ✅ Define form before sending
+      const { data } = await api.post('/login', form);
+      login(data.user); // updates context + localStorage
+      nav('/'); // redirect to home after login
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.error || "Login failed");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <h2 className="text-2xl mb-4">Login</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <form onSubmit={handleSubmit} className="flex flex-col">
-        <input type="email" placeholder="Email" value={email}
-               onChange={e => setEmail(e.target.value)} required
-               className="p-2 mb-2 border"/>
-        <input type="password" placeholder="Password" value={password}
-               onChange={e => setPassword(e.target.value)} required
-               className="p-2 mb-2 border"/>
-        <button type="submit" className="p-2 bg-blue-500 text-white">Login</button>
-      </form>
-      <p className="mt-4">No account? <Link to="/signup" className="text-blue-500">Sign up</Link></p>
-    </div>
-  );
+  <div className="login-container">
+    <h2>Login</h2>
+    {error && <p className="login-error">{error}</p>}
+    <form onSubmit={handleSubmit} className="login-form">
+      <input type="text" placeholder="Username" value={username}
+             onChange={e => setUsername(e.target.value)} required />
+      <input type="password" placeholder="Password" value={password}
+             onChange={e => setPassword(e.target.value)} required />
+      <button type="submit">Login</button>
+    </form>
+    <p className="login-footer">
+      No account? <Link to="/signup">Sign up</Link>
+    </p>
+  </div>
+);
 }

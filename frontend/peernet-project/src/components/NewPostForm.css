@@ -1,0 +1,37 @@
+/* NewPostForm.css */
+
+.new-post-form {
+  margin-bottom: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.new-post-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: vertical;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.new-post-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+.new-post-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.new-post-form button:hover {
+  background-color: #0056b3;
+}

@@ -3,22 +3,27 @@ import { api } from '../api';
 import PostCard from './PostCard';
 import NewPostForm from './NewPostForm';
 import { AuthContext } from '../AuthContext';
+import './Feed.css';
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
-  const { token } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const fetchPosts = async () => {
     const { data } = await api.get('/posts');
     setPosts(data);
   };
 
-  useEffect(() => { fetchPosts(); }, []);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   return (
-    <div className="max-w-2xl mx-auto mt-6">
-      {token && <NewPostForm onPost={fetchPosts} />}
-      {posts.map(post => <PostCard key={post._id} post={post} />)}
+    <div className="feed-container">
+      {user && <NewPostForm onPost={fetchPosts} />}
+      <div className="post-list">
+        {posts.map(post => <PostCard key={post._id} post={post} />)}
+      </div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, AuthContext } from './AuthContext';
+import AuthProvider, { AuthContext } from './AuthContext';
 import NavBar from './components/NavBar';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -9,8 +9,8 @@ import Profile from './components/Profile';
 
 // Protects routes that require authentication
 function RequireAuth({ children }) {
-  const { token } = useContext(AuthContext);
-  return token ? children : <Navigate to="/login" replace />;
+  const { user } = useContext(AuthContext);
+  return user ? children : <Navigate to="/login" replace />;
 }
 
 export default function App() {
