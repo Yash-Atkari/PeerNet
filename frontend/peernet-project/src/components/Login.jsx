@@ -3,7 +3,6 @@ import { AuthContext } from '../AuthContext';
 import { api } from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 import './Login.css';
-const BASE_URL = import.meta.env.VITE_API_BASE;
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -16,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     try {
       const form = { username, password }; // ✅ Define form before sending
-      const { data } = await api.post(`${BASE_URL}/api/login`, form);
+      const { data } = await api.post(`/api/login`, form);
       login(data.user); // updates context + localStorage
       nav('/'); // redirect to home after login
     } catch (err) {

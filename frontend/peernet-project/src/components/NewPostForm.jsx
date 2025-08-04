@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { api } from '../api';
 import './NewPostForm.css';
-const BASE_URL = import.meta.env.VITE_API_BASE;
 
 export default function NewPostForm({ onPost }) {
   const [text, setText] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
-    await api.post(`${BASE_URL}/api/posts`, { text });
+    await api.post(`/api/posts`, { text });
     setText('');
     onPost();
   };

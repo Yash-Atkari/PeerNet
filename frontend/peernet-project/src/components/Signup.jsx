@@ -3,7 +3,6 @@ import { AuthContext } from '../AuthContext';
 import { api } from '../api';
 import { useNavigate, Link } from 'react-router-dom';
 import './Signup.css';
-const BASE_URL = import.meta.env.VITE_API_BASE;
 
 export default function Signup() {
   const { login } = useContext(AuthContext);
@@ -16,7 +15,7 @@ export default function Signup() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const { data } = await api.post(`${BASE_URL}/api/auth/register`, form);
+      const { data } = await api.post(`/api/auth/register`, form);
       login(data.user);
       nav('/');
     } catch (err) {
